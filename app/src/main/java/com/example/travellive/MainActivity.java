@@ -23,8 +23,7 @@ public class MainActivity extends AppCompatActivity {
     static ArrayList<String> places = new ArrayList<String>();
     static  ArrayList<LatLng> locations = new ArrayList<LatLng>();
     static ArrayAdapter arrayAdapter;
-    static  ArrayList<String> latitudes = new ArrayList<>();
-    static  ArrayList<String> longitudes = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         ListView listView = findViewById(R.id.listView);
+          ArrayList<String> latitudes = new ArrayList<>();
+         ArrayList<String> longitudes = new ArrayList<>();
 
 
            // Creates Local Storage
@@ -107,15 +108,18 @@ public class MainActivity extends AppCompatActivity {
 
                 arrayAdapter.notifyDataSetChanged();
 
-                                                              // break down to store in shared Preferences
-                for(LatLng coord:MainActivity.locations){
-                    latitudes.add(Double.toString(coord.latitude));
-                    longitudes.add(Double.toString(coord.longitude));
-                }
+
 
                 try {
                                                                              //update shared preferences with out the deleted values
+                    ArrayList<String> latitudes = new ArrayList<>();
+                    ArrayList<String> longitudes = new ArrayList<>();
+                    // break down to store in shared Preferences
 
+                    for(LatLng coord:MainActivity.locations){
+                        latitudes.add(Double.toString(coord.latitude));
+                        longitudes.add(Double.toString(coord.longitude));
+                    }
 
 
                     sharedPreferences.edit().putString("places",ObjectSerializer.serialize(MainActivity.places)).commit();
@@ -124,12 +128,15 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            }catch (IOException e) {
+
+
+
+                }catch (IOException e) {
                 e.printStackTrace();
             }
 
                 Toast.makeText(getApplicationContext(),"Location Deleted!",Toast.LENGTH_SHORT).show();
-                return false;
+                return true;
             }
 
         });

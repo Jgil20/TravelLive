@@ -114,11 +114,14 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 try {
-                                                                             //trying to update shared preferences with out the deleted values
+                                                                             //update shared preferences with out the deleted values
 
-                    places = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("places",ObjectSerializer.serialize(places)));
-                    latitudes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("lats",ObjectSerializer.serialize(latitudes)));
-                    longitudes = (ArrayList<String>) ObjectSerializer.deserialize(sharedPreferences.getString("longs",ObjectSerializer.serialize(longitudes)));
+
+
+                    sharedPreferences.edit().putString("places",ObjectSerializer.serialize(MainActivity.places)).commit();
+                    sharedPreferences.edit().putString("lats",ObjectSerializer.serialize(latitudes)).commit();
+                    sharedPreferences.edit().putString("longs",ObjectSerializer.serialize(longitudes)).commit();
+
 
 
             }catch (IOException e) {
